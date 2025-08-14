@@ -1,0 +1,10 @@
+^C:\USERS\ADMIN\DOCUMENTS\WECHAT FILES\WXID_2OJXTWWJZW3422\FILESTORAGE\FILE\2025-08\2_6\2_6\BUILD\CMAKEFILES\0619012B75ACD81AA4AA290C37995EA4\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/cpp_src" "-BC:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build/my_project_cpp.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,4 @@
+C:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build/CMakeFiles/my_project_cpp.dir
+C:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build/pybind11_build/CMakeFiles/ALL_BUILD.dir

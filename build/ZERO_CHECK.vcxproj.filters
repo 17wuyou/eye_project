@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\admin\Documents\WeChat Files\wxid_2ojxtwwjzw3422\FileStorage\File\2025-08\2_6\2_6\build\CMakeFiles\0619012b75acd81aa4aa290c37995ea4\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{1F8E79B5-C210-3DDE-9477-6A8F56B06D5B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+^C:\USERS\ADMIN\DOCUMENTS\WECHAT FILES\WXID_2OJXTWWJZW3422\FILESTORAGE\FILE\2025-08\2_6\2_6\CPP_SRC\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/cpp_src" "-BC:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build" --check-stamp-file "C:/Users/admin/Documents/WeChat Files/wxid_2ojxtwwjzw3422/FileStorage/File/2025-08/2_6/2_6/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
