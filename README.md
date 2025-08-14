@@ -67,8 +67,8 @@
 #### a. 克隆仓库
 
 ```bash
-git clone <your-repository-url>
-cd <your-project-directory>
+git clone https://github.com/17wuyou/eye_project.git
+cd eye_project
 ```
 
 #### b. 初始化 C++ 依赖 (pybind11)
