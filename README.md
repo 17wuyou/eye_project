@@ -71,7 +71,7 @@ git clone https://github.com/17wuyou/eye_project.git
 cd eye_project
 ```
 
-#### b. 初始化 C++ 依赖 (pybind11)
+#### b. 初始化 C++ 依赖 (pybind11)(项目中已安装)
 
 ```bash
 git submodule add https://github.com/pybind/pybind11.git deps/pybind11
@@ -82,7 +82,17 @@ git submodule update --init --recursive
 
 本项目 C++ 部分依赖 OpenCV。请从 [OpenCV 官网](https://opencv.org/releases/) 下载适用于您操作系统的最新版本开发库，并将其路径配置到环境变量 `OpenCV_DIR` 中，指向其 `build` 目录。
 
-#### d. 编译 C++ 模块
+```bash
+# 举例
+# 环境变量中，设置 OpenCV_DIR
+OpenCV_DIR = <你的路径>\opencv\build
+# Path 中添加
+%OpenCV_DIR%\x64\vc16\bin # 或者 %OpenCV_DIR%\x64\vc17\bin，看自己的文件夹是vc16还是vc17
+```
+
+
+
+#### d. 编译 C++ 模块(已有示例的.sln项目和.pyd示例文件，若项目无更改可以直接跳过此步骤)
 
 ```bash
 # 创建构建目录
@@ -109,7 +119,7 @@ cd ..
 #### e. 创建 Python 虚拟环境并安装依赖
 
 ```bash
-# 创建虚拟环境
+# 创建虚拟环境（venv虚拟环境已经创建，可以跳过这一步）
 python -m venv venv
 
 # 激活虚拟环境
