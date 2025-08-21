@@ -1,118 +1,78 @@
-# 智能眼镜后端服务 (Smart Glasses Backend Service)
+2. 安装步骤（修订与避坑版）
+a. 克隆仓库
+Bash
 
-这是一个为智能眼镜设备提供后端支持的综合服务项目。它采用C++和Python混合编程模型，以实现高性能的实时数据处理和强大的AI功能。
+git clone https://github.com/17wuyou/eye_project.git
+cd eye_project
+b. 初始化 C++ 依赖 (pybind11)
+(注：此项目的deps目录中已包含pybind11，通常无需手动执行此步骤)
 
-## 主要功能
+Bash
 
-* **实时流处理**: 基于C++的WebSocket服务器，用于接收和处理来自眼镜的实时音频和视频流。
-* **关键词唤醒 (KWS)**: 使用 PicoVoice Porcupine 在C++端进行低延迟的关键词检测。
-* **语音识别 (ASR)**: 使用 OpenAI Whisper 模型进行高精度的语音到文本转换。
-* **声纹识别 (Diarization)**: 使用 Pyannote.audio 区分对话中的不同说话人。
-* **人脸识别 (Face Recognition)**: 使用 InsightFace 进行人脸检测和身份识别。
-* **大语言模型 (LLM)**: 集成 Google Gemini Pro Vision，实现基于视觉和语音的智能问答。
-* **语音合成 (TTS)**: 使用 Edge TTS 将AI的回答合成为自然语音。
-* **Web管理界面**: 基于 Flask 和 Socket.IO 的前端页面，用于监控和管理后端服务。
+# git submodule update --init --recursive
+c. 安装并配置 OpenCV C++ 开发库 (关键步骤)
+本项目 C++ 部分依赖 OpenCV，其版本必须与您的 Python 版本及编译器严格匹配。
 
-## 环境准备 (Prerequisites)
+下载：从 OpenCV 官网 下载适用于 Windows 的最新版本开发库。
 
-在开始之前，请确保您的开发环境中已安装以下软件：
+解压：运行下载的 .exe 文件，将其解压到一个稳定的、不含中文或空格的路径（例如 D:\opencv）。
 
-1.  **Visual Studio 2022**: 需安装 “使用C++的桌面开发” 工作负载。
-2.  **CMake**: 版本 3.15 或更高。
-3.  **Python**: 版本 3.12 (64-bit)。
-4.  **vcpkg**: C++ 包管理器，并已正确配置。
+设置环境变量：这是成功运行的关键。
 
-## 安装与构建流程
+OpenCV_DIR: 此变量用于编译时让 CMake 找到库。
 
-1.  **克隆项目**
-    ```bash
-    git clone <your-repository-url>
-    cd EyeTeach
-    ```
+Path: 此变量用于运行时让 Windows 找到所需的 .dll 文件。
 
-2.  **创建Python虚拟环境**
-    强烈建议在项目根目录下创建一个虚拟环境，以隔离依赖。
-    ```bash
-    python -m venv glassEnv
-    ```
+Bash
 
-3.  **激活虚拟环境**
-    ```powershell
-    # 在 PowerShell 中
-    .\glassEnv\Scripts\Activate.ps1
-    ```
+# 举例:
+# 在系统环境变量中，新建一个条目
+OpenCV_DIR = D:\opencv\build
 
-4.  **安装Python依赖库**
-    在**已激活**的虚拟环境中，安装所有必需的Python库。
-    ```bash
-    # 首先安装PyTorch
-    pip install torch torchvision toraudio --index-url [https://download.pytorch.org/whl/cu118](https://download.pytorch.org/whl/cu118)
-    # 然后安装其余库
-    pip install -r requirements.txt
-    ```
+# 在系统环境变量 Path 的列表中，新建一条
+# (Python 3.11 需配合 vc16，请确保 D:\opencv\build\x64 目录下存在 vc16 文件夹)
+%OpenCV_DIR%\x64\vc16\bin
+重要：修改环境变量后，必须关闭并重新打开您的命令行/终端窗口才能生效。
 
-5.  **【核心步骤】配置C++中的Python路径**
-    由于本项目的C++核心 (`CoreEngine.exe`) 需要直接嵌入并调用Python，您必须在C++代码中手动指定正确的Python路径。
+d. 编译 C++ 模块
+注意：请确保已完成下一步(e)，并在已激活的 Python 3.11 虚拟环境中执行此操作。
 
-    * **打开源文件**: `src/main.cpp`
-    * **定位到配置区域**: 找到文件开头的路径设置部分。
-    * **根据您本机的路径进行修改**:
+Bash
 
-    您需要修改以下几行代码中的**绝对路径**，使其指向您自己电脑上的对应位置：
+# 1. 清理旧缓存并创建构建目录 (如果存在build文件夹)
+rmdir /S /Q build
+mkdir build
+cd build
 
-    ```cpp
-    // 1️⃣ 指定您的主Python安装目录
-    // 找到您电脑上安装Python 3.12的根目录
-    Py_SetPythonHome(L"C:\\Users\\12429\\AppData\\Local\\Programs\\Python\\Python312");
+# 2. 配置项目 (CMake)
+# 为避免CMake找到错误的Python版本，我们强制指定解释器路径
+# a. 先在激活的环境中用 `where python` 命令找到路径
+# b. 然后在下方命令中替换为您自己的路径
+cmake -DPython_EXECUTABLE="D:/AnacondaDowload/envs/eye_env_311/python.exe" ../cpp_src
 
-    // ...
+# 3. 构建项目
+cmake --build . --config Release
 
-    // 3️⃣ 添加Python的搜索路径
-    PyRun_SimpleString(
-        "import sys\n"
-        // 路径a: 您的主Python的Lib目录
-        "sys.path.append(r'C:\\Users\\12429\\AppData\\Local\\Programs\\Python\\Python312\\Lib')\n"
-        // 路径b: 您的主Python的site-packages目录
-        "sys.path.append(r'C:\\Users\\12429\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages')\n"
-        // 路径c: 您为此项目创建的虚拟环境的site-packages目录
-        "sys.path.append(r'D:\\eye8.18\\EyeTeach\\glassEnv\\Lib\\site-packages')\n"
-        // 路径d: 您本项目的根目录
-        "sys.path.append(r'D:\\eye8.18\\EyeTeach')\n"
-    );
-    ```
-    **示例**: 如果您的用户是 `newUser`，Python安装在 `C:\Python312`，项目放在 `C:\Projects\EyeTeach`，那么修改后的代码应该像这样：
-    ```cpp
-    Py_SetPythonHome(L"C:\\Python312");
-    
-    PyRun_SimpleString(
-        "import sys\n"
-        "sys.path.append(r'C:\\Python312\\Lib')\n"
-        "sys.path.append(r'C:\\Python312\\Lib\\site-packages')\n"
-        "sys.path.append(r'C:\\Projects\\EyeTeach\\glassEnv\\Lib\\site-packages')\n"
-        "sys.path.append(r'C:\\Projects\\EyeTeach')\n"
-    );
-    ```
-    **修改完成后，请务必保存 `main.cpp` 文件。**
+# 4. 回到根目录
+cd ..
+构建完成后，必须手动将 build\Release 目录下的 .pyd 文件（例如 my_project_cpp.cp311-win_amd64.pyd）复制到项目根目录。
 
-6.  **编译C++代码**
-    确保您仍处于**已激活**的虚拟环境中，运行以下命令：
-    ```cmd
-    # 生成项目文件 (请确保vcpkg路径正确)
-    cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE="D:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+终极避坑方案：为彻底避免运行时 ImportError: DLL load failed 的问题，强烈建议将 D:\opencv\build\x64\vc16\bin 目录下的 opencv_worldXXX.dll 文件也复制到项目根目录，和 .pyd 文件放在一起。
 
-    # 编译项目
-    cmake --build build
-    ```
+e. 创建 Python 虚拟环境并安装依赖
+强烈建议使用 Python 3.11 (64位) 版本，以保证与我们验证过的 vc16 工具链兼容。
 
-## 运行程序
+Bash
 
-1.  **准备DLL文件**
-    编译成功后，将 `vendor\porcupine\lib\windows\amd64\libpv_porcupine.dll` 文件复制到 `build\Debug` 目录下，与 `CoreEngine.exe` 放在一起。
+# 1. 创建虚拟环境 (推荐使用 Conda)
+conda create -n eye_env_311 python=3.11
 
-2.  **启动核心引擎**
-    在**已激活**的虚拟环境中，运行可执行文件：
-    ```cmd
-    cd build\Debug
-    CoreEngine.exe
-    ```
-    如果一切顺利，您将看到服务器成功启动并监听端口的日志信息。
+# 2. 激活虚拟环境
+conda activate eye_env_311
+
+# 3. 升级 pip
+pip install --upgrade pip
+
+# 4. 安装所有 Python 依赖
+pip install -r requirements.txt
+注意: 如果在安装 requirements.txt 时遇到依赖冲突，请根据错误提示调整文件中的包版本。
