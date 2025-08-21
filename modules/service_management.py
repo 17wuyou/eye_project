@@ -1,4 +1,7 @@
 # modules/service_management.py
+import sys
+print("Python path:", sys.executable)
+
 import os, logging
 from typing import Optional, Union, Type
 import torch

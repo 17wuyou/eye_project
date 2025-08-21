@@ -18,13 +18,13 @@ MAX_INPUT_QUEUE_TIME_MS = 2000 # 2秒#truman加入
 
 # Maximum number of video frames to hold in the backlog for processing.
 # This prevents the queue from growing indefinitely if processing is slow.
-MAX_VIDEO_PROCESSING_BACKLOG_FRAMES = 20#Truamn
+MAX_VIDEO_PROCESSING_BACKLOG_FRAMES = 20#Truamn加入
 
 # ==============================================================================
 # --- 积压队列配置 ---
 # ==============================================================================
 # 积压在队列中等待处理的音频数据的最大时长（毫秒）
-MAX_AUDIO_PROCESSING_BACKLOG_MS = 3000 # 3秒#Truman
+MAX_AUDIO_PROCESSING_BACKLOG_MS = 3000 # 3秒#Truman加入
 
 
 

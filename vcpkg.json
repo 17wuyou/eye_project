@@ -1,0 +1,12 @@
+{
+  "name": "eye4",
+  "version": "0.1.0",
+  "dependencies": [
+    "uwebsockets",
+    "openssl",
+    "opencv4",
+    "pybind11",
+    "python3"
+  ],
+  "builtin-baseline": "d30fdf55cfca16e12bc3ad99cbc615997014b61b"
+}
