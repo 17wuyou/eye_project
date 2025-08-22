@@ -1,22 +1,26 @@
+
 # 🚀 快速开始（修订·避坑版）
 
 以下内容针对 **Windows 64-bit** 用户，按顺序执行可最大限度避免「DLL 找不到」「CMake 找不到 Python」等常见坑。
 
 ---
 
-## a. 克隆仓库
+## a.快速开始
 
 ```bash
 git clone https://github.com/17wuyou/eye_project.git
 cd eye_project
+```
+---
 
-## b. 初始化 C++ 依赖（pybind11）
+## b.初始化 C++ 依赖（pybind11）
 
 > 本项目 `deps` 目录已内置 pybind11，通常 **无需手动操作**。  
 > 如需强制更新，可取消下一行注释：
 
 ```bash
 # git submodule update --init --recursive
+```
 
 ## c. 安装并配置 OpenCV C++ 开发库（关键步骤）
 
@@ -64,8 +68,4 @@ D:\opencv
 | 步骤 | 命令 |
 | --- | --- |
 | **1. 创建虚拟环境**（推荐 Conda） | ```cmd<br>conda create -n eye_env_311 python=3.11<br>``` |
-| **2. 激活虚拟环境** | ```cmd<br>conda activate eye_env_311<br>``` |
-| **3. 升级 pip** | ```cmd<br>pip install --upgrade pip<br>``` |
-| **4. 安装 Python 依赖** | ```cmd<br>pip install -r requirements.txt<br>``` |
-
-> ⚠️ 若安装过程中出现依赖冲突，请根据报错提示手动调整 `requirements.txt` 中的版本号。
+| **2. 激活虚拟环境** | ```cmd<br>conda a
